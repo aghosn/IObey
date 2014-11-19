@@ -4,7 +4,7 @@ import Keys._
 object build extends Build {
 
   lazy val commonSettings = Defaults.defaultSettings ++ Seq(
-    scalaVersion := "2.11.3")
+    scalaVersion := "2.11.2")
 
   lazy val core = Project(
     id = "core",
