@@ -20,7 +20,7 @@ object build extends Build {
 
 	lazy val root = Project(
 		id = "build", 
-		base = file("."), 
+		base = file("rules"), 
 		settings = sharedSettings ++ commonDependencies ++ List(
 			libraryDependencies ++= Seq(Dependencies.scalahost, Dependencies.scalatest)
 		)
