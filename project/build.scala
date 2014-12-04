@@ -17,8 +17,9 @@ object build extends Build {
     base = file("core"),
     settings = sharedSettings ++ commonDependencies ++ Seq(
     scalacOptions ++= Seq(
-      "-Xplugin:"+Dependencies.obey_plugin,
-      "-P:obey:addRules:rules/target/scala-2.11/classes"))) dependsOn(rules)
+      "-Xplugin:"+Dependencies.obey_plugin, 
+      "-P:obey:format:+List"
+      /*"-P:obey:addRules:rules/target/scala-2.11/classes"*/))) dependsOn(rules)
 
   lazy val rules = Project(
     id = "rules",
