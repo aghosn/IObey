@@ -18,8 +18,11 @@ object Dependencies {
   lazy val scalatest = "org.scalatest" %% "scalatest" % "2.1.3" % "test"
   lazy val scalacheck = "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
 
+/*
   lazy val obey_model = "/home/aghosn/.ivy2/local/org.obey/model_2.11.2/0.1.0-SNAPSHOT/jars/model_2.11.2.jar"
   lazy val obey_plugin = "/home/aghosn/.ivy2/local/org.obey/plugin_2.11.2/0.1.0-SNAPSHOT/jars/plugin_2.11.2.jar"
-
+*/
+  lazy val obey_model = "com.github.aghosn" % "model_2.11.2" % "0.1.0-SNAPSHOT"
+  lazy val obey_plugin = "com.github.aghosn" % "plugin_2.11.2" % "0.1.0-SNAPSHOT"
 
 }
