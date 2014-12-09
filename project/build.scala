@@ -22,6 +22,6 @@ object build extends Build {
     id = "rules",
     base = file("rules"),
     settings = sharedSettings ++ commonDependencies ++ List(
-      libraryDependencies ++= Seq(Dependencies.scalatest)))
+      libraryDependencies ++= Seq(Dependencies.obey_model, Dependencies.scalatest)))
 
 }
