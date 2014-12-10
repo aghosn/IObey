@@ -1,8 +1,5 @@
 import sbt._
 import Keys._
-import sbtassembly.Plugin._
-import AssemblyKeys._
-import com.typesafe.sbt.pgp.PgpKeys._
 
 object Settings {
 	lazy val languageVersion = "2.11.2"
@@ -28,33 +25,6 @@ object Settings {
       } else None
     }*/
 	)
- 
- lazy val flatLayout: Seq[sbt.Def.Setting[_]] = assemblySettings ++ Seq(
-    scalaSource in Compile <<= (baseDirectory in Compile)(base => base),
-    resourceDirectory in Compile <<= (baseDirectory in Compile)(base => base / "resources")
-  )
-
-  lazy val mergeDependencies: Seq[sbt.Def.Setting[_]] = assemblySettings ++ Seq(
-    test in assembly := {},
-    logLevel in assembly := Level.Error,
-    jarName in assembly := name.value + "_" + scalaVersion.value + "-" + version.value + "-assembly.jar",
-    assemblyOption in assembly ~= { _.copy(includeScala = false) },
-    Keys.`package` in Compile := {
-      val slimJar = (Keys.`package` in Compile).value
-      val fatJar = new File(crossTarget.value + "/" + (jarName in assembly).value)
-      val _ = assembly.value
-      IO.copy(List(fatJar -> slimJar), overwrite = true)
-      slimJar
-    },
-    packagedArtifact in Compile in packageBin := {
-      val temp = (packagedArtifact in Compile in packageBin).value
-      val (art, slimJar) = temp
-      val fatJar = new File(crossTarget.value + "/" + (jarName in assembly).value)
-      val _ = assembly.value
-      IO.copy(List(fatJar -> slimJar), overwrite = true)
-      (art, slimJar)
-    }
-  )
 
   lazy val dontPackage = packagedArtifacts := Map.empty
 	
