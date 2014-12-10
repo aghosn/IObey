@@ -3,6 +3,7 @@ import Keys._
 import sbtassembly.Plugin._
 import AssemblyKeys._
 import complete.DefaultParsers._
+import obeyplugin._
 
 object build extends Build {
   import Dependencies._
@@ -15,8 +16,7 @@ object build extends Build {
   lazy val core = Project(
     id = "core",
     base = file("core"),
-    settings = sharedSettings ++ commonDependencies ++ Seq(
-    addCompilerPlugin(Dependencies.obey_plugin))) dependsOn(rules)
+    settings = sharedSettings ++ commonDependencies ++ obeySettings ++ Seq(obeyFormatPos ++= Seq("List", "Set"))) dependsOn(rules)
 
   lazy val rules = Project(
     id = "rules",
