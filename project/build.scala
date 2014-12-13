@@ -1,10 +1,7 @@
 import sbt._
 import Keys._
-import complete.DefaultParsers._
-import obeyplugin._
 
 object build extends Build {
-  import Dependencies._
   import Settings._
   
   lazy val commonDependencies = Seq(
@@ -14,7 +11,7 @@ object build extends Build {
   lazy val core = Project(
     id = "core",
     base = file("core"),
-    settings = sharedSettings ++ commonDependencies ++ obeySettings ++ Seq(obeyFormatPos ++= Seq("List", "Set"))) dependsOn(rules)
+    settings = sharedSettings ++ commonDependencies ++ (obeyplugin.obeyFix += "+List")) dependsOn(rules) enablePlugins(obeyplugin)
 
   lazy val rules = Project(
     id = "rules",
