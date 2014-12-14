@@ -1,7 +1,7 @@
 import scala.meta.internal.ast._
 import tqlscalameta.ScalaMetaTraverser._
 import scala.obey.model._
-import scala.obey.tools.Utils._
+import scala.obey.model.utils._
 import scala.language.reflectiveCalls
 
 @Tag("Var", "Val") object MyRule extends Rule {
