@@ -11,7 +11,7 @@ object build extends Build {
   lazy val core = Project(
     id = "core",
     base = file("core"),
-    settings = sharedSettings ++ commonDependencies ++ (obeyplugin.obeyFix += "+List")) dependsOn(rules) enablePlugins(obeyplugin)
+    settings = sharedSettings ++ commonDependencies ++ (obeyplugin.obeyFix += "+{List*}")) dependsOn(rules) enablePlugins(obeyplugin)
 
   lazy val rules = Project(
     id = "rules",
