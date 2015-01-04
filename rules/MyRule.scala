@@ -1,5 +1,5 @@
 import scala.meta.internal.ast._
-import tqlscalameta.ScalaMetaTraverser._
+import scala.meta.tql.ScalaMetaFusionTraverser._
 import scala.obey.model._
 import scala.obey.model.utils._
 import scala.language.reflectiveCalls
@@ -9,17 +9,14 @@ import scala.language.reflectiveCalls
 
   def message(n: Tree, t: Tree): Message = Message(s"The 'var' $n from ${t} was never reassigned and should therefore be a 'val'", t)
 
-  def apply: Matcher[List[Message]] = {
-    collectIn[Set] {
+  def apply = {
+    collect[Set] {
       case Term.Assign(b: Term.Name, _) => b
     }.down feed { assign =>
-      (collect {
-        case t @ Defn.Var(_, (b: Term.Name) :: Nil, _, _) if (!assign.contains(b)) => message(b, t)
-      } <~
-        update {
-          case Defn.Var(a, (b: Term.Name) :: Nil, c, Some(d)) if (!assign.contains(b)) =>
-            Defn.Val(a, b :: Nil, c, d)
-        }).down
+      (transform {
+        case t @ Defn.Var(a, (b: Term.Name) :: Nil, c, Some(d)) if (!assign.contains(b)) =>
+          Defn.Val(a, b :: Nil, c, d) andCollect message(b, t)
+      }).down
     }
   }
 }
